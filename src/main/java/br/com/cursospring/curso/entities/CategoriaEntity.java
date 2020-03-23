@@ -1,4 +1,4 @@
-package br.com.cursospring.curso.entitys;
+package br.com.cursospring.curso.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
