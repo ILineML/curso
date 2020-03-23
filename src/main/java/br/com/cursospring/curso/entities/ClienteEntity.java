@@ -20,6 +20,9 @@ public class ClienteEntity implements Serializable {
     private Integer tipoCliente;
 
     @OneToMany(mappedBy = "cliente")
+    private List<PedidoEntity> pedidos = new ArrayList<>();
+
+    @OneToMany(mappedBy = "cliente")
     @JsonManagedReference
     private List<EnderecoEntity> enderecos = new ArrayList<>();
 
@@ -92,6 +95,14 @@ public class ClienteEntity implements Serializable {
 
     public void setTelefones(Set<String> telefones) {
         this.telefones = telefones;
+    }
+
+    public List<PedidoEntity> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<PedidoEntity> pedidos) {
+        this.pedidos = pedidos;
     }
 
     @Override

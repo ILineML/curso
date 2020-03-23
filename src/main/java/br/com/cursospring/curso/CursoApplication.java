@@ -1,6 +1,7 @@
 package br.com.cursospring.curso;
 
 import br.com.cursospring.curso.entities.*;
+import br.com.cursospring.curso.enums.EstadoPagamento;
 import br.com.cursospring.curso.enums.TipoCliente;
 import br.com.cursospring.curso.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 @SpringBootApplication
@@ -30,6 +32,12 @@ public class CursoApplication implements CommandLineRunner {
 
 	@Autowired
 	private EnderecoRepository enderecoRepository;
+
+	@Autowired
+	private PedidoRepository pedidoRepository;
+
+	@Autowired
+	private PagamentoRepository pagamentoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoApplication.class, args);
@@ -79,6 +87,21 @@ public class CursoApplication implements CommandLineRunner {
 
 		clienteRepository.save(cli1);
 		enderecoRepository.saveAll(Arrays.asList(e1, e2));
+
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		PedidoEntity ped1 = new PedidoEntity(null, sdf.parse("30/09/2017 18:02:30"), e1, cli1);
+		PedidoEntity ped2 = new PedidoEntity(null, sdf.parse("04/19/2019 20:12:40"), e1, cli1);
+
+		PagamentoEntity pag1 = new PagamentoCartaoEntity(null, EstadoPagamento.QUITADO, ped1, 6);
+		ped1.setPagamento(pag1);
+
+		PagamentoEntity pag2 = new PagamentoBoletoEntity(null, EstadoPagamento.PENDENTE, ped2, sdf.parse("30/03/2020 23:59:59"), null);
+		ped2.setPagamento(pag2);
+
+		cli1.getPedidos().addAll(Arrays.asList(ped1, ped2));
+
+		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
+		pagamentoRepository.saveAll(Arrays.asList(pag1, pag2));
 
 	}
 
