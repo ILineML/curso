@@ -1,5 +1,7 @@
 package br.com.cursospring.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Embeddable;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -11,6 +13,7 @@ public class ItemPedidoPKEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "fkPedido")
     private PedidoEntity pedido;
 

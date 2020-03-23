@@ -1,5 +1,8 @@
 package br.com.cursospring.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -14,9 +17,12 @@ public class PedidoEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Date instante;
 
     @OneToOne(mappedBy = "pedido", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private PagamentoEntity pagamento;
 
     @ManyToOne
@@ -25,6 +31,7 @@ public class PedidoEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "fkCliente")
+    @JsonManagedReference
     private ClienteEntity cliente;
 
     @OneToMany(mappedBy = "id.pedido")

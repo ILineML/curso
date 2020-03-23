@@ -1,6 +1,7 @@
 package br.com.cursospring.curso.entities;
 
 import br.com.cursospring.curso.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import javax.persistence.Entity;
 import java.util.Date;
@@ -9,7 +10,10 @@ import java.util.Date;
 public class PagamentoBoletoEntity extends PagamentoEntity {
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
     private Date dtVencimento;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private Date dtPagamento;
 
     public PagamentoBoletoEntity(){

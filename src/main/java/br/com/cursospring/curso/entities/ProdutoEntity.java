@@ -1,6 +1,7 @@
 package br.com.cursospring.curso.entities;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -27,6 +28,7 @@ public class ProdutoEntity implements Serializable {
     private List<CategoriaEntity> categorias = new ArrayList<>();
 
     @OneToMany(mappedBy = "id.produto")
+    @JsonIgnore
     private Set<ItemPedidoEntity> itens = new HashSet<>();
 
     @Override
@@ -51,9 +53,8 @@ public class ProdutoEntity implements Serializable {
         this.preco = preco;
     }
 
-
+    @JsonIgnore
     public List<PedidoEntity> getPedidos(){
-
         List<PedidoEntity> lista = new ArrayList<>();
 
         for(ItemPedidoEntity current : this.itens){

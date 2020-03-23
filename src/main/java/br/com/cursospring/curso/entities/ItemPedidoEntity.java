@@ -1,5 +1,7 @@
 package br.com.cursospring.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
@@ -27,6 +29,7 @@ public class ItemPedidoEntity implements Serializable {
         this.preco = preco;
     }
 
+    @JsonIgnore
     public PedidoEntity getPedido(){
         return this.id.getPedido();
     }
