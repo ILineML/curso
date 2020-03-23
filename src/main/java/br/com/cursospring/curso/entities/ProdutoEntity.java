@@ -7,22 +7,28 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-public class CategoriaEntity implements Serializable {
+public class ProdutoEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String nome;
+    private Double preco;
 
-    @ManyToMany(mappedBy = "categorias")
-    private List<ProdutoEntity> produtos = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "PRODUTO_CATEGORIA",
+            joinColumns = @JoinColumn(name = "fkProduto"),
+            inverseJoinColumns = @JoinColumn(name = "fkCategoria")
+    )
+    private List<CategoriaEntity> categorias = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        CategoriaEntity that = (CategoriaEntity) o;
+        ProdutoEntity that = (ProdutoEntity) o;
         return id.equals(that.id);
     }
 
@@ -31,12 +37,13 @@ public class CategoriaEntity implements Serializable {
         return Objects.hash(id);
     }
 
-    public CategoriaEntity() {
+    public ProdutoEntity() {
     }
 
-    public CategoriaEntity(Integer id, String nome) {
+    public ProdutoEntity(Integer id, String nome, Double preco) {
         this.id = id;
         this.nome = nome;
+        this.preco = preco;
     }
 
     public Integer getId() {
@@ -55,11 +62,19 @@ public class CategoriaEntity implements Serializable {
         this.nome = nome;
     }
 
-    public List<ProdutoEntity> getProdutos() {
-        return produtos;
+    public Double getPreco() {
+        return preco;
     }
 
-    public void setProdutos(List<ProdutoEntity> produtos) {
-        this.produtos = produtos;
+    public void setPreco(Double preco) {
+        this.preco = preco;
+    }
+
+    public List<CategoriaEntity> getCategorias() {
+        return categorias;
+    }
+
+    public void setCategorias(List<CategoriaEntity> categorias) {
+        this.categorias = categorias;
     }
 }
