@@ -1,7 +1,5 @@
 package br.com.cursospring.curso.entities;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -17,7 +15,6 @@ public class CidadeEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "fkEstado")
-    @JsonManagedReference
     private EstadoEntity estado;
 
     @Override

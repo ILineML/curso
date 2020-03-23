@@ -1,8 +1,7 @@
 package br.com.cursospring.curso.entities;
 
 import br.com.cursospring.curso.enums.TipoCliente;
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,11 +20,10 @@ public class ClienteEntity implements Serializable {
     private Integer tipoCliente;
 
     @OneToMany(mappedBy = "cliente")
-    @JsonBackReference
+    @JsonIgnore
     private List<PedidoEntity> pedidos = new ArrayList<>();
 
     @OneToMany(mappedBy = "cliente")
-    @JsonManagedReference
     private List<EnderecoEntity> enderecos = new ArrayList<>();
 
     @ElementCollection

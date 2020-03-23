@@ -1,6 +1,6 @@
 package br.com.cursospring.curso.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -21,7 +21,7 @@ public class EnderecoEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "fkCliente")
-    @JsonBackReference
+    @JsonIgnore
     private ClienteEntity cliente;
 
     @ManyToOne

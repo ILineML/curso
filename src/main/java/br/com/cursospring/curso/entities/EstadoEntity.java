@@ -1,6 +1,6 @@
 package br.com.cursospring.curso.entities;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +18,7 @@ public class EstadoEntity implements Serializable {
     private String nome;
 
     @OneToMany(mappedBy = "estado")
-    @JsonBackReference
+    @JsonIgnore
     private List<CidadeEntity> cidades = new ArrayList<>();
 
     @Override
