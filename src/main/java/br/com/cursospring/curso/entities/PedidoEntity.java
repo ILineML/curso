@@ -3,7 +3,9 @@ package br.com.cursospring.curso.entities;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class PedidoEntity implements Serializable {
@@ -24,6 +26,9 @@ public class PedidoEntity implements Serializable {
     @ManyToOne
     @JoinColumn(name = "fkCliente")
     private ClienteEntity cliente;
+
+    @OneToMany(mappedBy = "id.pedido")
+    private Set<ItemPedidoEntity> itens = new HashSet<>();
 
     public PedidoEntity(){
     }
@@ -74,6 +79,14 @@ public class PedidoEntity implements Serializable {
 
     public void setCliente(ClienteEntity cliente) {
         this.cliente = cliente;
+    }
+
+    public Set<ItemPedidoEntity> getItens() {
+        return itens;
+    }
+
+    public void setItens(Set<ItemPedidoEntity> itens) {
+        this.itens = itens;
     }
 
     @Override

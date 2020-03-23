@@ -39,6 +39,9 @@ public class CursoApplication implements CommandLineRunner {
 	@Autowired
 	private PagamentoRepository pagamentoRepository;
 
+	@Autowired
+	private ItemPedidoRepository itemPedidoRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(CursoApplication.class, args);
 	}
@@ -102,6 +105,19 @@ public class CursoApplication implements CommandLineRunner {
 
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pag1, pag2));
+
+		ItemPedidoEntity ip1 = new ItemPedidoEntity(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedidoEntity ip2 = new ItemPedidoEntity(ped1, p3, 0.00, 2, 80.00);
+		ItemPedidoEntity ip3 = new ItemPedidoEntity(ped2, p2, 100.00, 1, 800.00);
+
+		ped1.getItens().addAll(Arrays.asList(ip1, ip2));
+		ped2.getItens().add(ip3);
+
+		p1.getItens().add(ip1);
+		p2.getItens().add(ip3);
+		p3.getItens().add(ip2);
+
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
 
 	}
 
