@@ -1,8 +1,12 @@
 package br.com.cursospring.curso;
 
 import br.com.cursospring.curso.entities.CategoriaEntity;
+import br.com.cursospring.curso.entities.CidadeEntity;
+import br.com.cursospring.curso.entities.EstadoEntity;
 import br.com.cursospring.curso.entities.ProdutoEntity;
 import br.com.cursospring.curso.repositories.CategoriaRepository;
+import br.com.cursospring.curso.repositories.CidadeRepository;
+import br.com.cursospring.curso.repositories.EstadoRepository;
 import br.com.cursospring.curso.repositories.ProdutosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -19,6 +23,12 @@ public class CursoApplication implements CommandLineRunner {
 
 	@Autowired
 	private ProdutosRepository produtosRepository;
+
+	@Autowired
+	private CidadeRepository cidadeRepository;
+
+	@Autowired
+	private EstadoRepository estadoRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(CursoApplication.class, args);
@@ -44,6 +54,18 @@ public class CursoApplication implements CommandLineRunner {
 		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
 		produtosRepository.saveAll(Arrays.asList(p1, p2, p3));
 
+		EstadoEntity est1 = new EstadoEntity(null, "Minas Gerais");
+		EstadoEntity est2 = new EstadoEntity(null, "São Paulo");
+
+		CidadeEntity c1 = new CidadeEntity(null,"Uberlândia", est1);
+		CidadeEntity c2 = new CidadeEntity(null,"São Paulo", est2);
+		CidadeEntity c3 = new CidadeEntity(null,"Campinas", est2);
+
+		est1.getCidades().add(c1);
+		est2.getCidades().addAll(Arrays.asList(c2, c3));
+
+		estadoRepository.saveAll(Arrays.asList(est1, est2));
+		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 	}
 
 }
