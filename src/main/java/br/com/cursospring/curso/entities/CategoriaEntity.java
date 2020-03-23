@@ -1,5 +1,7 @@
 package br.com.cursospring.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -16,6 +18,8 @@ public class CategoriaEntity implements Serializable {
     private String nome;
 
     @ManyToMany(mappedBy = "categorias")
+//    Permite busca dos objetos
+    @JsonManagedReference
     private List<ProdutoEntity> produtos = new ArrayList<>();
 
     @Override

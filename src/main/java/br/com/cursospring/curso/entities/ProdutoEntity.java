@@ -1,5 +1,7 @@
 package br.com.cursospring.curso.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -17,6 +19,8 @@ public class ProdutoEntity implements Serializable {
     private Double preco;
 
     @ManyToMany
+//    Bloqueia busca dos objetos
+    @JsonBackReference
     @JoinTable(
             name = "PRODUTO_CATEGORIA",
             joinColumns = @JoinColumn(name = "fkProduto"),
