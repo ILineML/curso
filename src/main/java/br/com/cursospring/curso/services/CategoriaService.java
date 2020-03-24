@@ -2,8 +2,10 @@ package br.com.cursospring.curso.services;
 
 import br.com.cursospring.curso.entities.CategoriaEntity;
 import br.com.cursospring.curso.repositories.CategoriaRepository;
+import br.com.cursospring.curso.services.exceptions.DataIntegrityException;
 import br.com.cursospring.curso.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -32,5 +34,16 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
+    public void deletarCategoria(Integer id){
+        this.buscarCategoria(id);
+
+        try{
+            categoriaRepository.deleteById(id);
+        } catch (DataIntegrityViolationException ex){
+                throw new DataIntegrityException("Não é possível excluir uma categoria que possui produtos");
+        }
+
+
+    }
 
 }
