@@ -70,6 +70,10 @@ public class ItemPedidoEntity implements Serializable {
         this.preco = preco;
     }
 
+    public Double getSubTotal(){
+        return (this.preco - this.desconto) * this.quantidade;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

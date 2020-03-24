@@ -96,6 +96,18 @@ public class PedidoEntity implements Serializable {
         this.itens = itens;
     }
 
+    public Double getValorTotal(){
+
+        double soma = 0;
+
+        for(ItemPedidoEntity current : this.getItens()){
+            soma += current.getSubTotal();
+        }
+
+        return soma;
+
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
