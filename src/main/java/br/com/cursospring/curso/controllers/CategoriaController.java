@@ -4,6 +4,7 @@ import br.com.cursospring.curso.dto.CategoriaDTO;
 import br.com.cursospring.curso.entities.CategoriaEntity;
 import br.com.cursospring.curso.services.CategoriaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -59,5 +60,18 @@ public class CategoriaController {
 
         return ResponseEntity.ok().body(categoriaDTOS);
     }
+
+    @RequestMapping(value = "/pagina", method = RequestMethod.GET)
+    public ResponseEntity<Page<CategoriaDTO>> encontrarTodasPorPaginaCategoria(
+            @RequestParam(defaultValue = "0") Integer qtdPagina, @RequestParam(defaultValue = "24") Integer linhas,
+            @RequestParam(defaultValue = "nome") String ordenacao, @RequestParam(defaultValue = "ASC") String direcao
+    ){
+
+        Page<CategoriaEntity> categorias = categoriaService.encontrarTodasPorPaginaCategorias(qtdPagina, linhas, ordenacao, direcao);
+        Page<CategoriaDTO> categoriaDTOS = categorias.map(entity -> new CategoriaDTO(entity));
+
+        return ResponseEntity.ok().body(categoriaDTOS);
+    }
+
 
 }
