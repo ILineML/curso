@@ -31,6 +31,9 @@ public class PedidoService {
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
 
+    @Autowired
+    private ClienteService clienteService;
+
     public PedidoEntity buscaPedido(Integer id){
 
         PedidoEntity pedido = pedidoRepository.findById(id).orElse(null);
@@ -45,6 +48,8 @@ public class PedidoService {
     public PedidoEntity adicionarPedido(PedidoEntity entity){
         entity.setId(null);
         entity.setInstante(new Date());
+        entity.setCliente(clienteService.buscarCliente(entity.getCliente().getId()));
+
 
         entity.getPagamento().setEstado(EstadoPagamento.PENDENTE);
         entity.getPagamento().setPedido(entity);
@@ -59,10 +64,14 @@ public class PedidoService {
 
         for(ItemPedidoEntity current : entity.getItens()){
             current.setDesconto(0.00);
-            current.setPreco(produtoService.buscaProduto(current.getProduto().getId()).getPreco());
+            current.setProduto(produtoService.buscaProduto(current.getProduto().getId()));
+            current.setPreco(current.getProduto().getPreco());
             current.setPedido(entity);
         }
         itemPedidoRepository.saveAll(entity.getItens());
+
+        System.out.println(entity);
+
         return entity;
     }
 

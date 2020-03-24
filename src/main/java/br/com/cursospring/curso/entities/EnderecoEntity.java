@@ -22,7 +22,7 @@ public class EnderecoEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "fkCliente")
-    @JsonBackReference
+    @JsonIgnore
     private ClienteEntity cliente;
 
     @ManyToOne

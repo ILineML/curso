@@ -17,7 +17,7 @@ public class CidadeEntity implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "fkEstado")
-    @JsonManagedReference
+//    @JsonManagedReference
     private EstadoEntity estado;
 
     @Override

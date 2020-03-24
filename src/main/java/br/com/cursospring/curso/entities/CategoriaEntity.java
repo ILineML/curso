@@ -19,7 +19,7 @@ public class CategoriaEntity implements Serializable {
 
     @ManyToMany(mappedBy = "categorias")
 //    Permite busca dos objetos
-    @JsonManagedReference
+//    @JsonManagedReference
     private List<ProdutoEntity> produtos = new ArrayList<>();
 
     @Override

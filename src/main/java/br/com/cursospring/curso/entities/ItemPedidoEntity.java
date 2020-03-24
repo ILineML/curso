@@ -1,10 +1,13 @@
 package br.com.cursospring.curso.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.apache.tomcat.jni.Local;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Objects;
 
 @Entity
@@ -95,4 +98,19 @@ public class ItemPedidoEntity implements Serializable {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("ItemPedidoEntity{");
+
+        NumberFormat nf = NumberFormat.getCurrencyInstance(new Locale("pt", "BR"));
+
+        sb.append(this.getProduto().getNome());
+        sb.append(", quantidade: ");
+        sb.append(this.quantidade);
+        sb.append(", Preço Unitário: ");
+        sb.append(nf.format(this.preco));
+        sb.append(", SubTotal: ");
+        sb.append(nf.format(this.getSubTotal()));
+        return sb.toString();
+    }
 }

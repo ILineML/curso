@@ -26,7 +26,7 @@ public abstract class PagamentoEntity implements Serializable {
     @OneToOne
     @JoinColumn(name = "fkPedido")
     @MapsId
-    @JsonBackReference
+    @JsonIgnore
     private PedidoEntity pedido;
 
     public PagamentoEntity(){

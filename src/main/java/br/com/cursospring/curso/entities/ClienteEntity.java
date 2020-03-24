@@ -24,11 +24,11 @@ public class ClienteEntity implements Serializable {
     private Integer tipoCliente;
 
     @OneToMany(mappedBy = "cliente")
-    @JsonBackReference
+    @JsonIgnore
     private List<PedidoEntity> pedidos = new ArrayList<>();
 
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    @JsonManagedReference
+//    @JsonManagedReference
     private List<EnderecoEntity> enderecos = new ArrayList<>();
 
     @ElementCollection

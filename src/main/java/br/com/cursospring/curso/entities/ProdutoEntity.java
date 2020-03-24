@@ -19,7 +19,8 @@ public class ProdutoEntity implements Serializable {
 
     @ManyToMany
 //    Bloqueia busca dos objetos
-    @JsonBackReference
+//    @JsonBackReference
+    @JsonIgnore
     @JoinTable(
             name = "PRODUTO_CATEGORIA",
             joinColumns = @JoinColumn(name = "fkProduto"),
