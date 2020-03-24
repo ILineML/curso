@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.validation.Valid;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,8 +31,9 @@ public class CategoriaController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> adicionarCategoria(@RequestBody CategoriaEntity body){
-        CategoriaEntity categoria = categoriaService.adicionarCategoria(body);
+    public ResponseEntity<Void> adicionarCategoria(@Valid @RequestBody CategoriaDTO body){
+        CategoriaEntity entity = categoriaService.converterDto(body);
+        CategoriaEntity categoria = categoriaService.adicionarCategoria(entity);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
                 buildAndExpand(categoria.getId()).toUri();
@@ -40,9 +42,10 @@ public class CategoriaController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Void> atualizarCategoria(@PathVariable Integer id, @RequestBody CategoriaEntity body){
+    public ResponseEntity<Void> atualizarCategoria(@PathVariable Integer id, @Valid @RequestBody CategoriaDTO body){
         body.setId(id);
-        CategoriaEntity categoria = categoriaService.atualizarCategoria(body);
+        CategoriaEntity entity = categoriaService.converterDto(body);
+        CategoriaEntity categoria = categoriaService.atualizarCategoria(entity);
         return ResponseEntity.noContent().build();
     }
 

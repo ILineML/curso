@@ -1,5 +1,6 @@
 package br.com.cursospring.curso.services;
 
+import br.com.cursospring.curso.dto.CategoriaDTO;
 import br.com.cursospring.curso.entities.CategoriaEntity;
 import br.com.cursospring.curso.repositories.CategoriaRepository;
 import br.com.cursospring.curso.services.exceptions.DataIntegrityException;
@@ -58,6 +59,10 @@ public class CategoriaService {
         PageRequest pageRequest = PageRequest.of(qtdPagina, linhas, Sort.Direction.valueOf(direcao), ordenacao);
         return categoriaRepository.findAll(pageRequest);
 
+    }
+
+    public CategoriaEntity converterDto(CategoriaDTO dto){
+        return new CategoriaEntity(dto.getId(), dto.getNome());
     }
 
 }
