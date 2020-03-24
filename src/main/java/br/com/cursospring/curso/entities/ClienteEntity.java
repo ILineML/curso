@@ -41,7 +41,7 @@ public class ClienteEntity implements Serializable {
         this.nome = nome;
         this.email = email;
         this.documento = documento;
-        this.tipoCliente = tipoCliente.getCodigo();
+        this.tipoCliente = tipoCliente == null ? null : tipoCliente.getCodigo();
     }
 
     public Integer getId() {
