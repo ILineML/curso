@@ -32,7 +32,7 @@ public abstract class PagamentoEntity implements Serializable {
 
     public PagamentoEntity(Integer id, EstadoPagamento estado, PedidoEntity pedido) {
         this.id = id;
-        this.estado = estado.getCodigo();
+        this.estado = estado == null ? null : estado.getCodigo();
         this.pedido = pedido;
     }
 

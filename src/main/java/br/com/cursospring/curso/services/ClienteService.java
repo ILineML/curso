@@ -1,9 +1,12 @@
 package br.com.cursospring.curso.services;
 
 import br.com.cursospring.curso.dto.ClienteDTO;
+import br.com.cursospring.curso.dto.ClienteNewDto;
+import br.com.cursospring.curso.entities.*;
 import br.com.cursospring.curso.entities.ClienteEntity;
-import br.com.cursospring.curso.entities.ClienteEntity;
+import br.com.cursospring.curso.enums.TipoCliente;
 import br.com.cursospring.curso.repositories.ClienteRepository;
+import br.com.cursospring.curso.repositories.EnderecoRepository;
 import br.com.cursospring.curso.services.exceptions.DataIntegrityException;
 import br.com.cursospring.curso.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,9 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository clienteRepository;
+
+    @Autowired
+    private EnderecoRepository enderecoRepository;
 
     public ClienteEntity buscarCliente(Integer id){
 
@@ -68,5 +74,33 @@ public class ClienteService {
     public ClienteEntity converterDto(ClienteDTO dto){
         return new ClienteEntity(dto.getId(), dto.getNome(), dto.getEmail(), null, null);
     }
+
+    public ClienteEntity converterNewDto(ClienteNewDto dto){
+        ClienteEntity entity = new ClienteEntity(null, dto.getNome(), dto.getEmail(), dto.getDocumento(), TipoCliente.toEnum(dto.getTipoCliente()));
+        CidadeEntity cidadeEntity = new CidadeEntity(dto.getCidadeId(), null, null);
+        EnderecoEntity enderecoEntity = new EnderecoEntity(null, dto.getLogradouro(), dto.getNumero(), dto.getComplemento(), dto.getBairro(), dto.getCep(), entity, cidadeEntity);
+        entity.getEnderecos().add(enderecoEntity);
+
+        entity.getTelefones().add(dto.getTelefone1());
+
+        if(dto.getTelefone2() != null){
+            entity.getTelefones().add(dto.getTelefone3());
+        }
+
+        if(dto.getTelefone3() != null){
+            entity.getTelefones().add(dto.getTelefone3());
+        }
+
+        return entity;
+    }
+
+    public ClienteEntity adicionarCliente(ClienteEntity cliente){
+        cliente.setId(null);
+        cliente = clienteRepository.save(cliente);
+
+        enderecoRepository.saveAll(cliente.getEnderecos());
+        return cliente;
+    }
+
 
 }

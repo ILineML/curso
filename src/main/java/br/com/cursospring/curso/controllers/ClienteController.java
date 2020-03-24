@@ -1,6 +1,9 @@
 package br.com.cursospring.curso.controllers;
 
+import br.com.cursospring.curso.dto.CategoriaDTO;
 import br.com.cursospring.curso.dto.ClienteDTO;
+import br.com.cursospring.curso.dto.ClienteNewDto;
+import br.com.cursospring.curso.entities.CategoriaEntity;
 import br.com.cursospring.curso.entities.ClienteEntity;
 import br.com.cursospring.curso.entities.ClienteEntity;
 import br.com.cursospring.curso.services.ClienteService;
@@ -9,8 +12,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +69,16 @@ public class ClienteController {
         return ResponseEntity.ok().body(clienteDTOS);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity<Void> adicionarCategoria(@Valid @RequestBody ClienteNewDto body){
+        ClienteEntity entity = clienteService.converterNewDto(body);
+        ClienteEntity categoria = clienteService.adicionarCliente(entity);
+
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
+                buildAndExpand(categoria.getId()).toUri();
+
+        return ResponseEntity.created(uri).build();
+    }
 
 
 }
