@@ -19,7 +19,7 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> encontrarCategoria(@PathVariable Integer id){
+    public ResponseEntity<PedidoEntity> encontrarCategoria(@PathVariable Integer id){
 
         PedidoEntity pedido = pedidoService.buscaPedido(id);
 

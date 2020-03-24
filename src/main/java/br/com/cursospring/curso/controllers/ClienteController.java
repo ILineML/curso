@@ -19,7 +19,7 @@ public class ClienteController {
     private ClienteService clienteService;
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<?> encontrarCategoria(@PathVariable Integer id){
+    public ResponseEntity<ClienteEntity> encontrarCategoria(@PathVariable Integer id){
 
         ClienteEntity cliente = clienteService.buscaCliente(id);
 

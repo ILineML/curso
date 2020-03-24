@@ -27,5 +27,10 @@ public class CategoriaService {
         return categoriaRepository.save(categoria);
     }
 
+    public CategoriaEntity atualizarCategoria(CategoriaEntity categoria){
+        this.buscarCategoria(categoria.getId());
+        return categoriaRepository.save(categoria);
+    }
+
 
 }
