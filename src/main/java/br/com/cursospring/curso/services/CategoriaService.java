@@ -2,6 +2,7 @@ package br.com.cursospring.curso.services;
 
 import br.com.cursospring.curso.dto.CategoriaDTO;
 import br.com.cursospring.curso.entities.CategoriaEntity;
+import br.com.cursospring.curso.entities.ClienteEntity;
 import br.com.cursospring.curso.repositories.CategoriaRepository;
 import br.com.cursospring.curso.services.exceptions.DataIntegrityException;
 import br.com.cursospring.curso.services.exceptions.ObjectNotFoundException;
@@ -36,8 +37,9 @@ public class CategoriaService {
     }
 
     public CategoriaEntity atualizarCategoria(CategoriaEntity categoria){
-        this.buscarCategoria(categoria.getId());
-        return categoriaRepository.save(categoria);
+        CategoriaEntity entity = this.buscarCategoria(categoria.getId());
+        this.atualizarDados(entity, categoria);
+        return categoriaRepository.save(entity);
     }
 
     public void deletarCategoria(Integer id){
@@ -63,6 +65,10 @@ public class CategoriaService {
 
     public CategoriaEntity converterDto(CategoriaDTO dto){
         return new CategoriaEntity(dto.getId(), dto.getNome());
+    }
+
+    private void atualizarDados(CategoriaEntity entity, CategoriaEntity categoria){
+        entity.setNome(categoria.getNome());
     }
 
 }
