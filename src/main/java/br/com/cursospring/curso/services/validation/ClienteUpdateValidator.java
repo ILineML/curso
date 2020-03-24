@@ -2,11 +2,8 @@ package br.com.cursospring.curso.services.validation;
 
 import br.com.cursospring.curso.controllers.exceptions.FieldMessage;
 import br.com.cursospring.curso.dto.ClienteDTO;
-import br.com.cursospring.curso.dto.ClienteNewDto;
 import br.com.cursospring.curso.entities.ClienteEntity;
-import br.com.cursospring.curso.enums.TipoCliente;
 import br.com.cursospring.curso.repositories.ClienteRepository;
-import br.com.cursospring.curso.services.validation.utils.BR;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerMapping;
 

@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 @ClienteInset
-public class ClienteNewDto implements Serializable {
+public class ClienteNewDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotEmpty(message = "Preenchimento obrigatório")
@@ -42,7 +42,7 @@ public class ClienteNewDto implements Serializable {
 
     private Integer cidadeId;
 
-    public ClienteNewDto(){
+    public ClienteNewDTO(){
     }
 
     public String getNome() {

@@ -1,7 +1,7 @@
 package br.com.cursospring.curso.services.validation;
 
 import br.com.cursospring.curso.controllers.exceptions.FieldMessage;
-import br.com.cursospring.curso.dto.ClienteNewDto;
+import br.com.cursospring.curso.dto.ClienteNewDTO;
 import br.com.cursospring.curso.entities.ClienteEntity;
 import br.com.cursospring.curso.enums.TipoCliente;
 import br.com.cursospring.curso.repositories.ClienteRepository;
@@ -13,7 +13,7 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class ClienteInsertValidator implements ConstraintValidator<ClienteInset, ClienteNewDto> {
+public class ClienteInsertValidator implements ConstraintValidator<ClienteInset, ClienteNewDTO> {
 
     @Autowired
     private ClienteRepository clienteRepository;
@@ -23,7 +23,7 @@ public class ClienteInsertValidator implements ConstraintValidator<ClienteInset,
     }
 
     @Override
-    public boolean isValid(ClienteNewDto objDto, ConstraintValidatorContext context) {
+    public boolean isValid(ClienteNewDTO objDto, ConstraintValidatorContext context) {
         List<FieldMessage> list = new ArrayList<>();
 
         if(objDto.getTipoCliente().equals(TipoCliente.PESSOA_FISICA.getCodigo()) && !BR.isValidCpf(objDto.getDocumento())){

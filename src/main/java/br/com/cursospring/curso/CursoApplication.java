@@ -51,20 +51,46 @@ public class CursoApplication implements CommandLineRunner {
 
 		CategoriaEntity cat1 = new CategoriaEntity(null, "Informática");
 		CategoriaEntity cat2 = new CategoriaEntity(null, "Escritório");
+		CategoriaEntity cat3 = new CategoriaEntity(null, "Cama, mesa e banho");
+		CategoriaEntity cat4 = new CategoriaEntity(null, "Eletrônicos");
+		CategoriaEntity cat5 = new CategoriaEntity(null, "Jardinagem");
+		CategoriaEntity cat6 = new CategoriaEntity(null, "Decoração");
+		CategoriaEntity cat7 = new CategoriaEntity(null, "Perfumaria");
 
 		ProdutoEntity p1 = new ProdutoEntity(null, "Computador", 2000.50);
 		ProdutoEntity p2 = new ProdutoEntity(null, "Impressora", 800.00);
 		ProdutoEntity p3 = new ProdutoEntity(null, "Mouse", 80.10);
-
-		p1.getCategorias().add(cat1);
-		p2.getCategorias().addAll(Arrays.asList(cat1, cat2));
-		p3.getCategorias().add(cat1);
+		ProdutoEntity p4 = new ProdutoEntity(null, "Mesa de escritório", 80.10);
+		ProdutoEntity p5 = new ProdutoEntity(null, "Toalha", 80.10);
+		ProdutoEntity p6 = new ProdutoEntity(null, "Colcha", 80.10);
+		ProdutoEntity p7 = new ProdutoEntity(null, "Tv true color", 80.10);
+		ProdutoEntity p8 = new ProdutoEntity(null, "Roçadeira", 80.10);
+		ProdutoEntity p9 = new ProdutoEntity(null, "Abajour", 80.10);
+		ProdutoEntity p10 = new ProdutoEntity(null, "Condicionador", 80.10);
+		ProdutoEntity p11 = new ProdutoEntity(null, "Shampoo", 80.10);
 
 		cat1.getProdutos().addAll(Arrays.asList(p1,p2,p3));
-		cat2.getProdutos().addAll(Arrays.asList(p2));
+		cat2.getProdutos().addAll(Arrays.asList(p2, p4));
+		cat3.getProdutos().addAll(Arrays.asList(p5, p6));
+		cat4.getProdutos().addAll(Arrays.asList(p1,p2,p3, p7));
+		cat5.getProdutos().add(p8);
+		cat6.getProdutos().addAll(Arrays.asList(p9, p10));
+		cat7.getProdutos().add(p11);
 
-		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
-		produtosRepository.saveAll(Arrays.asList(p1, p2, p3));
+		p1.getCategorias().addAll(Arrays.asList(cat1, cat4));
+		p2.getCategorias().addAll(Arrays.asList(cat1, cat2, cat4));
+		p3.getCategorias().addAll(Arrays.asList(cat1, cat4));
+		p4.getCategorias().add(cat2);
+		p5.getCategorias().add(cat3);
+		p6.getCategorias().add(cat3);
+		p7.getCategorias().add(cat4);
+		p8.getCategorias().add(cat5);
+		p9.getCategorias().add(cat6);
+		p10.getCategorias().add(cat6);
+		p11.getCategorias().add(cat7);
+
+		categoriaRepository.saveAll(Arrays.asList(cat1,cat2, cat3, cat4, cat5, cat6, cat7));
+		produtosRepository.saveAll(Arrays.asList(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10, p11));
 
 		EstadoEntity est1 = new EstadoEntity(null, "Minas Gerais");
 		EstadoEntity est2 = new EstadoEntity(null, "São Paulo");

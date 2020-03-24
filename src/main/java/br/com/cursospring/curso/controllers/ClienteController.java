@@ -1,12 +1,8 @@
 package br.com.cursospring.curso.controllers;
 
-import br.com.cursospring.curso.dto.CategoriaDTO;
 import br.com.cursospring.curso.dto.ClienteDTO;
-import br.com.cursospring.curso.dto.ClienteNewDto;
-import br.com.cursospring.curso.entities.CategoriaEntity;
+import br.com.cursospring.curso.dto.ClienteNewDTO;
 import br.com.cursospring.curso.entities.ClienteEntity;
-import br.com.cursospring.curso.entities.ClienteEntity;
-import br.com.cursospring.curso.services.ClienteService;
 import br.com.cursospring.curso.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -70,7 +66,7 @@ public class ClienteController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> adicionarCategoria(@Valid @RequestBody ClienteNewDto body){
+    public ResponseEntity<Void> adicionarCategoria(@Valid @RequestBody ClienteNewDTO body){
         ClienteEntity entity = clienteService.converterNewDto(body);
         ClienteEntity categoria = clienteService.adicionarCliente(entity);
 

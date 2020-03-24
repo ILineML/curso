@@ -1,7 +1,7 @@
 package br.com.cursospring.curso.services;
 
 import br.com.cursospring.curso.dto.ClienteDTO;
-import br.com.cursospring.curso.dto.ClienteNewDto;
+import br.com.cursospring.curso.dto.ClienteNewDTO;
 import br.com.cursospring.curso.entities.*;
 import br.com.cursospring.curso.entities.ClienteEntity;
 import br.com.cursospring.curso.enums.TipoCliente;
@@ -14,7 +14,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -75,7 +74,7 @@ public class ClienteService {
         return new ClienteEntity(dto.getId(), dto.getNome(), dto.getEmail(), null, null);
     }
 
-    public ClienteEntity converterNewDto(ClienteNewDto dto){
+    public ClienteEntity converterNewDto(ClienteNewDTO dto){
         ClienteEntity entity = new ClienteEntity(null, dto.getNome(), dto.getEmail(), dto.getDocumento(), TipoCliente.toEnum(dto.getTipoCliente()));
         CidadeEntity cidadeEntity = new CidadeEntity(dto.getCidadeId(), null, null);
         EnderecoEntity enderecoEntity = new EnderecoEntity(null, dto.getLogradouro(), dto.getNumero(), dto.getComplemento(), dto.getBairro(), dto.getCep(), entity, cidadeEntity);
