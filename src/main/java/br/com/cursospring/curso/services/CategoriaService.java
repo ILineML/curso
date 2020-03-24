@@ -22,4 +22,10 @@ public class CategoriaService {
         return categoria;
     }
 
+    public CategoriaEntity adicionarCategoria(CategoriaEntity categoria){
+        categoria.setId(null);
+        return categoriaRepository.save(categoria);
+    }
+
+
 }
