@@ -13,13 +13,13 @@ import java.util.List;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-public class TipoClienteValidator implements ConstraintValidator<TipoClienteAnnotation, ClienteNewDto> {
+public class ClienteInsertValidator implements ConstraintValidator<ClienteInset, ClienteNewDto> {
 
     @Autowired
     private ClienteRepository clienteRepository;
 
     @Override
-    public void initialize(TipoClienteAnnotation ann) {
+    public void initialize(ClienteInset ann) {
     }
 
     @Override

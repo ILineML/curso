@@ -1,13 +1,13 @@
 package br.com.cursospring.curso.dto;
 
-import br.com.cursospring.curso.services.validation.TipoClienteAnnotation;
+import br.com.cursospring.curso.services.validation.ClienteInset;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
-@TipoClienteAnnotation
+@ClienteInset
 public class ClienteNewDto implements Serializable {
     private static final long serialVersionUID = 1L;
 
