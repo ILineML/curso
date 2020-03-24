@@ -3,6 +3,7 @@ package br.com.cursospring.curso.entities;
 import br.com.cursospring.curso.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -14,6 +15,7 @@ import java.util.Objects;
 //Pode ficar informação em cada tabela
 // --------- JOINED
 @Inheritance(strategy = InheritanceType.JOINED)
+@JsonTypeInfo(use=JsonTypeInfo.Id.NAME, include = JsonTypeInfo.As.PROPERTY, property = "@type")
 public abstract class PagamentoEntity implements Serializable {
     private static final long serialVersionUID = 1L;
 

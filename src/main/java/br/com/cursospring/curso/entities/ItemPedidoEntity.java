@@ -38,6 +38,14 @@ public class ItemPedidoEntity implements Serializable {
         return this.id.getProduto();
     }
 
+    public void setPedido(PedidoEntity pedido){
+        this.id.setPedido(pedido);
+    }
+
+    public void setProduto(ProdutoEntity produto){
+        this.id.setProduto(produto);
+    }
+
     public ItemPedidoPKEntity getId() {
         return id;
     }

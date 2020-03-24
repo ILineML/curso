@@ -2,11 +2,13 @@ package br.com.cursospring.curso.entities;
 
 import br.com.cursospring.curso.enums.EstadoPagamento;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import javax.persistence.Entity;
 import java.util.Date;
 
 @Entity
+@JsonTypeName("pagamentoBoleto")
 public class PagamentoBoletoEntity extends PagamentoEntity {
     private static final long serialVersionUID = 1L;
 
