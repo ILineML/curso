@@ -100,7 +100,7 @@ public class DBService {
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 
-        ClienteEntity cli1 = new ClienteEntity(null, "Matheus Lemes", "m@gmail.com", "37762756850", TipoCliente.PESSOA_FISICA);
+        ClienteEntity cli1 = new ClienteEntity(null, "Matheus Lemes", "theilemes@gmail.com", "37762756850", TipoCliente.PESSOA_FISICA);
         cli1.getTelefones().addAll(Arrays.asList("11977202265", "1123012143"));
 
         EnderecoEntity e1 = new EnderecoEntity(null, "Padre Bruno Ricco","458",null,"Padre Bruno Ricco","0323850", cli1, c2);

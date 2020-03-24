@@ -3,6 +3,7 @@ package br.com.cursospring.curso.config;
 import br.com.cursospring.curso.services.DBService;
 import br.com.cursospring.curso.services.EmailService;
 import br.com.cursospring.curso.services.MockMailService;
+import br.com.cursospring.curso.services.SMTPService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -32,8 +33,8 @@ public class DevConfig {
     }
 
     @Bean
-    public EmailService mockService(){
-        return new MockMailService();
+    public EmailService emailService(){
+        return new SMTPService();
     }
 
 
