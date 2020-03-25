@@ -5,6 +5,7 @@ import br.com.cursospring.curso.enums.EstadoPagamento;
 import br.com.cursospring.curso.enums.TipoCliente;
 import br.com.cursospring.curso.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.ParseException;
@@ -40,6 +41,9 @@ public class DBService {
 
     @Autowired
     private ItemPedidoRepository itemPedidoRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public void instantiateTestDatabase() throws ParseException {
 
@@ -100,7 +104,7 @@ public class DBService {
         cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 
 
-        ClienteEntity cli1 = new ClienteEntity(null, "Matheus Lemes", "theilemes@gmail.com", "37762756850", TipoCliente.PESSOA_FISICA);
+        ClienteEntity cli1 = new ClienteEntity(null, "Matheus Lemes", "theilemes@gmail.com", "37762756850", TipoCliente.PESSOA_FISICA, bCryptPasswordEncoder.encode("senha123"));
         cli1.getTelefones().addAll(Arrays.asList("11977202265", "1123012143"));
 
         EnderecoEntity e1 = new EnderecoEntity(null, "Padre Bruno Ricco","458",null,"Padre Bruno Ricco","0323850", cli1, c2);

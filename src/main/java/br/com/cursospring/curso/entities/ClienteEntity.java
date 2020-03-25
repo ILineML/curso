@@ -23,6 +23,9 @@ public class ClienteEntity implements Serializable {
     private String documento;
     private Integer tipoCliente;
 
+    @JsonIgnore
+    private String senha;
+
     @OneToMany(mappedBy = "cliente")
     @JsonIgnore
     private List<PedidoEntity> pedidos = new ArrayList<>();
@@ -38,12 +41,13 @@ public class ClienteEntity implements Serializable {
     public ClienteEntity(){
     }
 
-    public ClienteEntity(Integer id, String nome, String email, String documento, TipoCliente tipoCliente) {
+    public ClienteEntity(Integer id, String nome, String email, String documento, TipoCliente tipoCliente, String senha) {
         this.id = id;
         this.nome = nome;
         this.email = email;
         this.documento = documento;
         this.tipoCliente = tipoCliente == null ? null : tipoCliente.getCodigo();
+        this.senha = senha;
     }
 
     public Integer getId() {
@@ -108,6 +112,14 @@ public class ClienteEntity implements Serializable {
 
     public void setPedidos(List<PedidoEntity> pedidos) {
         this.pedidos = pedidos;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
     @Override
