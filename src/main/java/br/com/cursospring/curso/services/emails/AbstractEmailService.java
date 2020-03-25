@@ -1,5 +1,6 @@
 package br.com.cursospring.curso.services.emails;
 
+import br.com.cursospring.curso.entities.ClienteEntity;
 import br.com.cursospring.curso.entities.PedidoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +36,17 @@ public abstract class AbstractEmailService implements EmailService{
 
     }
 
+    @Override
+    public void sendNewPasswordEmail(ClienteEntity cliente, String newPassword) {
+        try {
+            MimeMessage mm = prepareNewPassword(cliente, newPassword );
+            sendHtmlEmail(mm);
+        } catch (MessagingException me){
+            System.out.println("Deu ruim");
+        }
+    }
+
+
     protected MimeMessage prepareMimeMessageFromPedido(PedidoEntity pedido) throws MessagingException {
         MimeMessage mm = javaMailSender.createMimeMessage();
 
@@ -44,6 +56,19 @@ public abstract class AbstractEmailService implements EmailService{
         mmH.setSubject("Pedido confirmato - Código " + pedido.getId());
         mmH.setSentDate(new Date(System.currentTimeMillis()));
         mmH.setText(htmlFromTemplateFromPedido(pedido), true);
+
+        return mm;
+    }
+
+    protected MimeMessage prepareNewPassword(ClienteEntity cliente, String senha) throws MessagingException {
+        MimeMessage mm = javaMailSender.createMimeMessage();
+
+        MimeMessageHelper mmH = new MimeMessageHelper(mm, true);
+        mmH.setTo(cliente.getEmail());
+        mmH.setFrom(sender);
+        mmH.setSubject("Email de recuperação de senha");
+        mmH.setSentDate(new Date(System.currentTimeMillis()));
+//        mmH.setText(htmlFromTemplateFromPedido(pedido), true);
 
         return mm;
     }
