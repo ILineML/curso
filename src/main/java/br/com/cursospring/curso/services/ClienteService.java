@@ -4,11 +4,15 @@ import br.com.cursospring.curso.dto.ClienteDTO;
 import br.com.cursospring.curso.dto.ClienteNewDTO;
 import br.com.cursospring.curso.entities.*;
 import br.com.cursospring.curso.entities.ClienteEntity;
+import br.com.cursospring.curso.enums.Perfil;
 import br.com.cursospring.curso.enums.TipoCliente;
 import br.com.cursospring.curso.repositories.ClienteRepository;
 import br.com.cursospring.curso.repositories.EnderecoRepository;
+import br.com.cursospring.curso.security.UserSecurity;
+import br.com.cursospring.curso.services.exceptions.AuthorizationException;
 import br.com.cursospring.curso.services.exceptions.DataIntegrityException;
 import br.com.cursospring.curso.services.exceptions.ObjectNotFoundException;
+import br.com.cursospring.curso.services.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
@@ -33,6 +37,12 @@ public class ClienteService {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     public ClienteEntity buscarCliente(Integer id){
+
+        UserSecurity userSecurity = UserService.getCurrentUser();
+
+        if(userSecurity == null || (!userSecurity.hasRole(Perfil.ADMIN) && !userSecurity.equals(id))){
+            throw new AuthorizationException("Acesso negado");
+        }
 
         ClienteEntity cliente = clienteRepository.findById(id).orElse(null);
 

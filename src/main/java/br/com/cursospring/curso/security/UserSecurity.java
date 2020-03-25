@@ -26,6 +26,10 @@ public class UserSecurity implements UserDetails {
         this.authorities = perfis.stream().map(current -> new SimpleGrantedAuthority(current.getDescricao())).collect(Collectors.toList());
     }
 
+    public boolean hasRole(Perfil perfil){
+        return getAuthorities().contains(new SimpleGrantedAuthority(perfil.getDescricao()));
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return this.authorities;
