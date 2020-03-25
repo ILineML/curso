@@ -1,15 +1,20 @@
 package br.com.cursospring.curso.services;
 
-import br.com.cursospring.curso.entities.ItemPedidoEntity;
-import br.com.cursospring.curso.entities.PagamentoBoletoEntity;
-import br.com.cursospring.curso.entities.PedidoEntity;
+import br.com.cursospring.curso.entities.*;
 import br.com.cursospring.curso.enums.EstadoPagamento;
+import br.com.cursospring.curso.enums.Perfil;
 import br.com.cursospring.curso.repositories.ItemPedidoRepository;
 import br.com.cursospring.curso.repositories.PagamentoRepository;
 import br.com.cursospring.curso.repositories.PedidoRepository;
+import br.com.cursospring.curso.security.UserSecurity;
 import br.com.cursospring.curso.services.emails.EmailService;
+import br.com.cursospring.curso.services.exceptions.AuthorizationException;
 import br.com.cursospring.curso.services.exceptions.ObjectNotFoundException;
+import br.com.cursospring.curso.services.security.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -77,6 +82,20 @@ public class PedidoService {
         emailService.sendOrderConfirmationHtmlEmail(entity);
 
         return entity;
+    }
+
+    public Page<PedidoEntity> encontrarTodasPorPaginaPedido(Integer qtdPagina, Integer linhas, String ordenacao, String direcao){
+
+        UserSecurity userSecurity = UserService.getCurrentUser();
+
+        if(userSecurity == null){
+            throw new AuthorizationException("Acesso Negado");
+        }
+
+        PageRequest pageRequest = PageRequest.of(qtdPagina, linhas, Sort.Direction.valueOf(direcao), ordenacao);
+        ClienteEntity cliente = clienteService.buscarCliente(userSecurity.getId());
+
+        return pedidoRepository.findByCliente(cliente, pageRequest);
     }
 
 }
