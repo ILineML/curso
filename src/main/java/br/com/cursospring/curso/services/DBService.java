@@ -2,6 +2,7 @@ package br.com.cursospring.curso.services;
 
 import br.com.cursospring.curso.entities.*;
 import br.com.cursospring.curso.enums.EstadoPagamento;
+import br.com.cursospring.curso.enums.Perfil;
 import br.com.cursospring.curso.enums.TipoCliente;
 import br.com.cursospring.curso.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -107,12 +108,18 @@ public class DBService {
         ClienteEntity cli1 = new ClienteEntity(null, "Matheus Lemes", "theilemes@gmail.com", "37762756850", TipoCliente.PESSOA_FISICA, bCryptPasswordEncoder.encode("senha123"));
         cli1.getTelefones().addAll(Arrays.asList("11977202265", "1123012143"));
 
+        ClienteEntity cli2 = new ClienteEntity(null, "Matheus Admin", "matheus.leme@partners.digital", "37762756850", TipoCliente.PESSOA_FISICA, bCryptPasswordEncoder.encode("nimda"));
+        cli2.addPerfil(Perfil.ADMIN);
+        cli2.getTelefones().addAll(Arrays.asList("11977202265", "1123012143"));
+
         EnderecoEntity e1 = new EnderecoEntity(null, "Padre Bruno Ricco","458",null,"Padre Bruno Ricco","0323850", cli1, c2);
         EnderecoEntity e2 = new EnderecoEntity(null, "Avenida Matos","105","Casa B","Costa Oeste","12365478", cli1, c1);
+        EnderecoEntity e3 = new EnderecoEntity(null, "Avenida Floriano","205",null,"Costa Leste","12645478", cli2, c1);
 
         cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+        cli2.getEnderecos().addAll(Arrays.asList(e3));
 
-        clienteRepository.save(cli1);
+        clienteRepository.saveAll(Arrays.asList(cli1, cli2));
         enderecoRepository.saveAll(Arrays.asList(e1, e2));
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

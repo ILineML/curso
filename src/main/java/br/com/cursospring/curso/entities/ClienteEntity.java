@@ -1,13 +1,16 @@
 package br.com.cursospring.curso.entities;
 
+import br.com.cursospring.curso.enums.Perfil;
 import br.com.cursospring.curso.enums.TipoCliente;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import sun.misc.Perf;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Entity
 public class ClienteEntity implements Serializable {
@@ -38,7 +41,12 @@ public class ClienteEntity implements Serializable {
     @CollectionTable(name = "TELEFONE")
     private Set<String> telefones = new HashSet<>();
 
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "PERFIS")
+    private Set<Integer> perfis = new HashSet<>();
+
     public ClienteEntity(){
+        this.addPerfil(Perfil.CLIENTE);
     }
 
     public ClienteEntity(Integer id, String nome, String email, String documento, TipoCliente tipoCliente, String senha) {
@@ -48,6 +56,7 @@ public class ClienteEntity implements Serializable {
         this.documento = documento;
         this.tipoCliente = tipoCliente == null ? null : tipoCliente.getCodigo();
         this.senha = senha;
+        this.addPerfil(Perfil.CLIENTE);
     }
 
     public Integer getId() {
@@ -120,6 +129,14 @@ public class ClienteEntity implements Serializable {
 
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public Set<Perfil> getPerfil(){
+        return this.perfis.stream().map(perfil -> Perfil.toEnum(perfil)).collect(Collectors.toSet());
+    }
+
+    public void addPerfil(Perfil perfil){
+        this.perfis.add(perfil.getCodigo());
     }
 
     @Override
