@@ -1,6 +1,7 @@
 package br.com.cursospring.curso.config;
 
 import br.com.cursospring.curso.security.JWTAuthenticationFilter;
+import br.com.cursospring.curso.security.JWTAuthorizationFilter;
 import br.com.cursospring.curso.security.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -56,6 +57,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 //        Adiciona o filtro para autenticação
         http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtil));
+//        Adiciona o filte para autorização
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userDetailsService));
 
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
