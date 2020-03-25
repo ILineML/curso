@@ -7,6 +7,7 @@ import br.com.cursospring.curso.services.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -38,12 +39,14 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("HasAnyRole('ADMIN')")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletarCliente(@PathVariable Integer id){
         clienteService.deletarCliente(id);
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("HasAnyRole('ADMIN')")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<ClienteDTO>> encontrarTodasCliente(){
 
@@ -53,6 +56,7 @@ public class ClienteController {
         return ResponseEntity.ok().body(clienteDTOS);
     }
 
+    @PreAuthorize("HasAnyRole('ADMIN')")
     @RequestMapping(value = "/pagina", method = RequestMethod.GET)
     public ResponseEntity<Page<ClienteDTO>> encontrarTodasPorPaginaCliente(
             @RequestParam(defaultValue = "0") Integer qtdPagina, @RequestParam(defaultValue = "24") Integer linhas,
@@ -66,7 +70,7 @@ public class ClienteController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Void> adicionarCategoria(@Valid @RequestBody ClienteNewDTO body){
+    public ResponseEntity<Void> adicionarCliente(@Valid @RequestBody ClienteNewDTO body){
         ClienteEntity entity = clienteService.converterNewDto(body);
         ClienteEntity categoria = clienteService.adicionarCliente(entity);
 
