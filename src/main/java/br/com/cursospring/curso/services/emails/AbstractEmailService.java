@@ -1,9 +1,8 @@
-package br.com.cursospring.curso.services;
+package br.com.cursospring.curso.services.emails;
 
 import br.com.cursospring.curso.entities.PedidoEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
@@ -26,12 +25,6 @@ public abstract class AbstractEmailService implements EmailService{
     private JavaMailSender javaMailSender;
 
     @Override
-    public void sendOrderConfirmationEmail(PedidoEntity pedido){
-        SimpleMailMessage sm = prepareSimpleMailMessage(pedido);
-        sendEmail(sm);
-    }
-
-    @Override
     public void sendOrderConfirmationHtmlEmail(PedidoEntity pedido){
         try {
             MimeMessage mm = prepareMimeMessageFromPedido(pedido);
@@ -40,19 +33,6 @@ public abstract class AbstractEmailService implements EmailService{
             System.out.println("Deu ruim");
         }
 
-    }
-
-    protected SimpleMailMessage prepareSimpleMailMessage(PedidoEntity pedidoEntity){
-        SimpleMailMessage sm = new SimpleMailMessage();
-
-        sm.setTo(pedidoEntity.getCliente().getEmail());
-        sm.setFrom(sender);
-        sm.setSubject("Pedido confirmato - Código " + pedidoEntity.getId());
-        sm.setSentDate(new Date(System.currentTimeMillis()));
-
-        sm.setText(pedidoEntity.toString());
-
-        return sm;
     }
 
     protected MimeMessage prepareMimeMessageFromPedido(PedidoEntity pedido) throws MessagingException {

@@ -7,6 +7,7 @@ import br.com.cursospring.curso.enums.EstadoPagamento;
 import br.com.cursospring.curso.repositories.ItemPedidoRepository;
 import br.com.cursospring.curso.repositories.PagamentoRepository;
 import br.com.cursospring.curso.repositories.PedidoRepository;
+import br.com.cursospring.curso.services.emails.EmailService;
 import br.com.cursospring.curso.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,6 @@ package br.com.cursospring.curso.security;
 
 import br.com.cursospring.curso.dto.CredenciaisDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -22,6 +21,8 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
     private JWTUtil jwtUtil;
 
     public JWTAuthenticationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+//        Aqui é definido que em caso de erro na autentição, deve ser chamada esta classe
+        setAuthenticationFailureHandler(new JWTAuthenticationFailure());
         this.authenticationManager = authenticationManager;
         this.jwtUtil = jwtUtil;
     }
@@ -41,8 +42,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 //          UserDetailsService
             Authentication auth = authenticationManager.authenticate(authToken);
             return auth;
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
 

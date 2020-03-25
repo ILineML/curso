@@ -2,7 +2,6 @@ package br.com.cursospring.curso.config;
 
 import br.com.cursospring.curso.security.JWTAuthenticationFilter;
 import br.com.cursospring.curso.security.JWTUtil;
-import br.com.cursospring.curso.services.DefaultUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -63,6 +62,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+//        AQUI DIGO QUE DEVE SER USADA MINHA CLASSE DefaultUserDetailsService + que a forma de criptografar a senha
+//        É DO BCryptPasswordEncoder
         auth.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
     }
 

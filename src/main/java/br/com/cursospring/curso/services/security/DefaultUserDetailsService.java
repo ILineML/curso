@@ -1,4 +1,4 @@
-package br.com.cursospring.curso.services;
+package br.com.cursospring.curso.services.security;
 
 import br.com.cursospring.curso.entities.ClienteEntity;
 import br.com.cursospring.curso.repositories.ClienteRepository;
@@ -18,6 +18,7 @@ public class DefaultUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
+//        Encontra seu usário a partir do email
         ClienteEntity clienteEntity = clienteRepository.findByEmail(email);
 
         if(clienteEntity == null){

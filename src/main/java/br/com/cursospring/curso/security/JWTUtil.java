@@ -16,8 +16,8 @@ public class JWTUtil {
     @Value("${jwt.expiration}")
     private Long expiration;
 
-
     public String generateToken(String userName){
+//        Após o login com sucesso, o Token é gerado por aqui
         return Jwts.builder().setSubject(userName).setExpiration(new Date(System.currentTimeMillis()+expiration))
                 .signWith(SignatureAlgorithm.HS512, secret.getBytes()).compact();
     }
